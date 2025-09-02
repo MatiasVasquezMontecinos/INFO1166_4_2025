@@ -3,7 +3,7 @@ package SimulacionModule.application.perfil;
 import SimulacionModule.domain.perfil.Perfil;
 import SimulacionModule.domain.perfil.PerfilId;
 import SimulacionModule.domain.perfil.PerfilRepository;
-import SimulacionModule.domain.perfil.EstadoPerfil;
+//import SimulacionModule.domain.perfil.EstadoPerfil;
 
 import org.springframework.stereotype.Service;
 
