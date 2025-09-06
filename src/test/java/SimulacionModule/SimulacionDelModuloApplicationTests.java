@@ -1,10 +1,10 @@
-package com.bne.user_options_service;
+package SimulacionModule;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UserOptionsServiceApplicationTests {
+class SimulacionDelModuloApplicationTests {
 
 	@Test
 	void contextLoads() {
