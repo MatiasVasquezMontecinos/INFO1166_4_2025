@@ -13,7 +13,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;  // opcional si necesitas datos básicos
+    private String nombre;
 
     // relaciones
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -48,4 +48,6 @@ public class Usuario {
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private ExpectativaLaboral expectativa;
+
+
 }
