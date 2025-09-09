@@ -1,4 +1,5 @@
 package SimulacionModule.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,5 +18,6 @@ public class Capacitacion {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
+    @JsonBackReference
     private Usuario usuario;
 }

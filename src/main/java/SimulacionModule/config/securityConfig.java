@@ -13,7 +13,7 @@ public class securityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/usuarios/**").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> {}); // <- esta es la forma correcta en Spring Security 6
