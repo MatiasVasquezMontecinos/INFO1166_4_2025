@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+/cv_usuario_1.pdf
+/cv_usuario_2.pdf
+/data/testdb.mv.db
