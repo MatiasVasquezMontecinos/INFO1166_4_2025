@@ -23,19 +23,6 @@ public class PdfExport implements CvExport {
             document.add(new Paragraph("Nombre: " + usuario.getNombre()));
         }
 
-        if (usuario.getRut() != null) {
-            document.add(new Paragraph("Rut: " + usuario.getRut()));
-        }
-
-        // Condición laboral
-        if (usuario.getCondicionLaboral() != null) {
-            var cond = usuario.getCondicionLaboral();
-            document.add(new Paragraph("Situación laboral: " + cond.getSituacionLaboral()));
-            if (cond.getUltimaActividad() != null)
-                document.add(new Paragraph("Última actividad: " + cond.getUltimaActividad()));
-            if (cond.getUltimoSalarioLiquido() != null)
-                document.add(new Paragraph("Último salario líquido: " + cond.getUltimoSalarioLiquido()));
-        }
 
         // Resumen de perfil
         if (usuario.getResumenPerfil() != null && usuario.getResumenPerfil().getDescripcion() != null) {
@@ -110,13 +97,6 @@ public class PdfExport implements CvExport {
             );
         }
 
-        // Vehículos
-        if (usuario.getVehiculos() != null && !usuario.getVehiculos().isEmpty()) {
-            document.add(new Paragraph("\nVehículos:").setBold());
-            usuario.getVehiculos().forEach(veh ->
-                    document.add(new Paragraph("- " + veh.getTipoVehiculo()))
-            );
-        }
 
         // Competencias
         if (usuario.getCompetencias() != null && !usuario.getCompetencias().isEmpty()) {
