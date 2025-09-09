@@ -25,6 +25,10 @@ public class WordExport implements CvExport {
         XWPFRun runNombre = pNombre.createRun();
         runNombre.setText("Nombre: " + usuario.getNombre());
 
+        XWPFParagraph pRut = document.createParagraph();
+        XWPFRun runRut = pRut.createRun();
+        runRut.setText("Rut: " + usuario.getRut());
+
         // ===== Condición laboral =====
         if (usuario.getCondicionLaboral() != null) {
             var cond = usuario.getCondicionLaboral();

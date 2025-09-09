@@ -23,6 +23,10 @@ public class PdfExport implements CvExport {
             document.add(new Paragraph("Nombre: " + usuario.getNombre()));
         }
 
+        if (usuario.getRut() != null) {
+            document.add(new Paragraph("Rut: " + usuario.getRut()));
+        }
+
         // Condición laboral
         if (usuario.getCondicionLaboral() != null) {
             var cond = usuario.getCondicionLaboral();
