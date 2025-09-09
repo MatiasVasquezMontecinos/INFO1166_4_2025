@@ -25,30 +25,7 @@ public class WordExport implements CvExport {
         XWPFRun runNombre = pNombre.createRun();
         runNombre.setText("Nombre: " + usuario.getNombre());
 
-        XWPFParagraph pRut = document.createParagraph();
-        XWPFRun runRut = pRut.createRun();
-        runRut.setText("Rut: " + usuario.getRut());
 
-        // ===== Condición laboral =====
-        if (usuario.getCondicionLaboral() != null) {
-            var cond = usuario.getCondicionLaboral();
-
-            XWPFParagraph pCond = document.createParagraph();
-            XWPFRun runCond = pCond.createRun();
-            runCond.setText("Situación laboral: " + cond.getSituacionLaboral());
-
-            if (cond.getUltimaActividad() != null) {
-                XWPFParagraph pAct = document.createParagraph();
-                XWPFRun runAct = pAct.createRun();
-                runAct.setText("Última actividad: " + cond.getUltimaActividad());
-            }
-
-            if (cond.getUltimoSalarioLiquido() != null) {
-                XWPFParagraph pSalario = document.createParagraph();
-                XWPFRun runSalario = pSalario.createRun();
-                runSalario.setText("Último salario líquido: " + cond.getUltimoSalarioLiquido());
-            }
-        }
 
         // ===== Resumen de perfil =====
         if (usuario.getResumenPerfil() != null && usuario.getResumenPerfil().getDescripcion() != null) {
@@ -184,19 +161,6 @@ public class WordExport implements CvExport {
             }
         }
 
-        // ===== Vehículos =====
-        if (usuario.getVehiculos() != null && !usuario.getVehiculos().isEmpty()) {
-            XWPFParagraph pVehTitulo = document.createParagraph();
-            XWPFRun runVehTitulo = pVehTitulo.createRun();
-            runVehTitulo.setBold(true);
-            runVehTitulo.setText("Vehículos:");
-
-            for (var veh : usuario.getVehiculos()) {
-                XWPFParagraph pVeh = document.createParagraph();
-                XWPFRun runVeh = pVeh.createRun();
-                runVeh.setText("- " + veh.getTipoVehiculo());
-            }
-        }
 
         // ===== Competencias =====
         if (usuario.getCompetencias() != null && !usuario.getCompetencias().isEmpty()) {
