@@ -1,20 +1,24 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getUsuarios } from "../services/api";
 
-function Home() {
+export default function Home() {
+    const [usuarios, setUsuarios] = useState([]);
+
+    useEffect(() => {
+        getUsuarios()
+            .then((res) => setUsuarios(res.data))
+            .catch((err) => console.error(err));
+    }, []);
+
     return (
-        <div style={{ textAlign: "center", marginTop: "50px" }}>
-            <h1>Hola Mundo 👋</h1>
-            <p>Bienvenido a la Bolsa Nacional de Trabajo</p>
-            <div style={{ marginTop: "20px" }}>
-                <Link to="/registro">
-                    <button style={{ marginRight: "10px" }}>Ir a Registro</button>
-                </Link>
-                <Link to="/login">
-                    <button>Ir a Login</button>
-                </Link>
-            </div>
+        <div style={{ padding: "2rem" }}>
+            <h2>Home</h2>
+            <h3>Usuarios registrados:</h3>
+            <ul>
+                {usuarios.map((u) => (
+                    <li key={u.id}>{u.nombre}</li>
+                ))}
+            </ul>
         </div>
     );
 }
-
-export default Home;
