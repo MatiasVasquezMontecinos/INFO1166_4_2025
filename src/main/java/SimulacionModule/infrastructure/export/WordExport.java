@@ -12,82 +12,248 @@ public class WordExport implements CvExport {
     public void exportarCv(Usuario usuario, String path) throws IOException {
         XWPFDocument document = new XWPFDocument();
 
-
+        // ===== Título =====
         XWPFParagraph titulo = document.createParagraph();
         titulo.setAlignment(ParagraphAlignment.CENTER);
-        XWPFRun run = titulo.createRun();
-        run.setText("Curriculum Vitae");
-        run.setBold(true);
-        run.setFontSize(20);
+        XWPFRun runTitulo = titulo.createRun();
+        runTitulo.setText("Curriculum Vitae");
+        runTitulo.setBold(true);
+        runTitulo.setFontSize(20);
 
-        document.createParagraph().createRun().setText("Nombre: " + usuario.getNombre());
+        // ===== Nombre =====
+        XWPFParagraph pNombre = document.createParagraph();
+        XWPFRun runNombre = pNombre.createRun();
+        runNombre.setText("Nombre: " + usuario.getNombre());
 
-        if (usuario.getResumenPerfil() != null) {
-            document.createParagraph().createRun()
-                    .setText("Resumen perfil: " + usuario.getResumenPerfil().toString());
+        // ===== Condición laboral =====
+        if (usuario.getCondicionLaboral() != null) {
+            var cond = usuario.getCondicionLaboral();
+
+            XWPFParagraph pCond = document.createParagraph();
+            XWPFRun runCond = pCond.createRun();
+            runCond.setText("Situación laboral: " + cond.getSituacionLaboral());
+
+            if (cond.getUltimaActividad() != null) {
+                XWPFParagraph pAct = document.createParagraph();
+                XWPFRun runAct = pAct.createRun();
+                runAct.setText("Última actividad: " + cond.getUltimaActividad());
+            }
+
+            if (cond.getUltimoSalarioLiquido() != null) {
+                XWPFParagraph pSalario = document.createParagraph();
+                XWPFRun runSalario = pSalario.createRun();
+                runSalario.setText("Último salario líquido: " + cond.getUltimoSalarioLiquido());
+            }
         }
 
+        // ===== Resumen de perfil =====
+        if (usuario.getResumenPerfil() != null && usuario.getResumenPerfil().getDescripcion() != null) {
+            XWPFParagraph pResumen = document.createParagraph();
+            XWPFRun runResumenTitulo = pResumen.createRun();
+            runResumenTitulo.setBold(true);
+            runResumenTitulo.setText("Resumen de perfil:");
+
+            XWPFParagraph pResumenDesc = document.createParagraph();
+            XWPFRun runResumen = pResumenDesc.createRun();
+            runResumen.setText(usuario.getResumenPerfil().getDescripcion());
+        }
+
+        // ===== Experiencia laboral =====
         if (usuario.getExperiencias() != null && !usuario.getExperiencias().isEmpty()) {
-            document.createParagraph().createRun().setText("Experiencia laboral:");
+            XWPFParagraph pExpTitulo = document.createParagraph();
+            XWPFRun runExpTitulo = pExpTitulo.createRun();
+            runExpTitulo.setBold(true);
+            runExpTitulo.setText("Experiencia laboral:");
+
             for (var exp : usuario.getExperiencias()) {
-                document.createParagraph().createRun().setText(" - " + exp.toString());
+                XWPFParagraph pExp = document.createParagraph();
+                XWPFRun runExp = pExp.createRun();
+                runExp.setText("Ocupación: " + exp.getOcupacion());
+
+                XWPFParagraph pEmp = document.createParagraph();
+                XWPFRun runEmp = pEmp.createRun();
+                runEmp.setText("Empresa: " + exp.getEmpresa());
+
+                XWPFParagraph pDur = document.createParagraph();
+                XWPFRun runDur = pDur.createRun();
+                runDur.setText("Duración: " + exp.getExperienciaMeses() + " meses");
+
+                if (exp.getDescripcion() != null) {
+                    XWPFParagraph pDesc = document.createParagraph();
+                    XWPFRun runDesc = pDesc.createRun();
+                    runDesc.setText("Descripción: " + exp.getDescripcion());
+                }
+
+                XWPFParagraph pSep = document.createParagraph();
+                XWPFRun runSep = pSep.createRun();
+                runSep.setText("----------------------------");
             }
         }
 
+        // ===== Referencias =====
         if (usuario.getReferencias() != null && !usuario.getReferencias().isEmpty()) {
-            document.createParagraph().createRun().setText("Referencias:");
+            XWPFParagraph pRefTitulo = document.createParagraph();
+            XWPFRun runRefTitulo = pRefTitulo.createRun();
+            runRefTitulo.setBold(true);
+            runRefTitulo.setText("Referencias:");
+
             for (var ref : usuario.getReferencias()) {
-                document.createParagraph().createRun().setText(" - " + ref.toString());
+                XWPFParagraph pRef = document.createParagraph();
+                XWPFRun runRef = pRef.createRun();
+                runRef.setText(ref.getNombreCompleto() + " - " + ref.getPuesto());
+
+                XWPFParagraph pDet = document.createParagraph();
+                XWPFRun runDet = pDet.createRun();
+                runDet.setText("Empresa: " + ref.getEmpresa() + ", Tel: " + ref.getTelefono() + ", Email: " + ref.getEmail());
+
+                XWPFParagraph pSep = document.createParagraph();
+                XWPFRun runSep = pSep.createRun();
+                runSep.setText("----------------------------");
             }
         }
 
+        // ===== Educación =====
         if (usuario.getEducacion() != null && !usuario.getEducacion().isEmpty()) {
-            document.createParagraph().createRun().setText("Educación:");
+            XWPFParagraph pEduTitulo = document.createParagraph();
+            XWPFRun runEduTitulo = pEduTitulo.createRun();
+            runEduTitulo.setBold(true);
+            runEduTitulo.setText("Educación:");
+
             for (var edu : usuario.getEducacion()) {
-                document.createParagraph().createRun().setText(" - " + edu.toString());
+                XWPFParagraph pEdu = document.createParagraph();
+                XWPFRun runEdu = pEdu.createRun();
+                runEdu.setText(edu.getTitulo() + " - " + edu.getInstitucion());
+
+                if (edu.getObservaciones() != null) {
+                    XWPFParagraph pObs = document.createParagraph();
+                    XWPFRun runObs = pObs.createRun();
+                    runObs.setText("Obs: " + edu.getObservaciones());
+                }
+
+                XWPFParagraph pSep = document.createParagraph();
+                XWPFRun runSep = pSep.createRun();
+                runSep.setText("----------------------------");
             }
         }
 
+        // ===== Capacitaciones =====
         if (usuario.getCapacitaciones() != null && !usuario.getCapacitaciones().isEmpty()) {
-            document.createParagraph().createRun().setText("Capacitaciones:");
+            XWPFParagraph pCapTitulo = document.createParagraph();
+            XWPFRun runCapTitulo = pCapTitulo.createRun();
+            runCapTitulo.setBold(true);
+            runCapTitulo.setText("Capacitaciones:");
+
             for (var cap : usuario.getCapacitaciones()) {
-                document.createParagraph().createRun().setText(" - " + cap.toString());
+                XWPFParagraph pCap = document.createParagraph();
+                XWPFRun runCap = pCap.createRun();
+                runCap.setText(cap.getNombreCurso() + " - " + cap.getInstitucion() + " (" + cap.getDuracionHoras() + " horas)");
             }
         }
 
+        // ===== Idiomas =====
         if (usuario.getIdiomas() != null && !usuario.getIdiomas().isEmpty()) {
-            document.createParagraph().createRun().setText("Idiomas:");
+            XWPFParagraph pIdiomasTitulo = document.createParagraph();
+            XWPFRun runIdiomasTitulo = pIdiomasTitulo.createRun();
+            runIdiomasTitulo.setBold(true);
+            runIdiomasTitulo.setText("Idiomas:");
+
             for (var idioma : usuario.getIdiomas()) {
-                document.createParagraph().createRun().setText(" - " + idioma.toString());
+                XWPFParagraph pIdioma = document.createParagraph();
+                XWPFRun runIdioma = pIdioma.createRun();
+                runIdioma.setText(idioma.getIdioma() + " (Lectura: " + idioma.getNivelLectura() +
+                        ", Escritura: " + idioma.getNivelEscritura() +
+                        ", Habla: " + idioma.getNivelHabla() + ")");
             }
         }
 
+        // ===== Licencias =====
         if (usuario.getLicencias() != null && !usuario.getLicencias().isEmpty()) {
-            document.createParagraph().createRun().setText("Licencias:");
+            XWPFParagraph pLicTitulo = document.createParagraph();
+            XWPFRun runLicTitulo = pLicTitulo.createRun();
+            runLicTitulo.setBold(true);
+            runLicTitulo.setText("Licencias:");
+
             for (var lic : usuario.getLicencias()) {
-                document.createParagraph().createRun().setText(" - " + lic.toString());
+                XWPFParagraph pLic = document.createParagraph();
+                XWPFRun runLic = pLic.createRun();
+                runLic.setText("- " + lic.getTipoLicencia());
             }
         }
 
+        // ===== Vehículos =====
         if (usuario.getVehiculos() != null && !usuario.getVehiculos().isEmpty()) {
-            document.createParagraph().createRun().setText("Vehículos:");
+            XWPFParagraph pVehTitulo = document.createParagraph();
+            XWPFRun runVehTitulo = pVehTitulo.createRun();
+            runVehTitulo.setBold(true);
+            runVehTitulo.setText("Vehículos:");
+
             for (var veh : usuario.getVehiculos()) {
-                document.createParagraph().createRun().setText(" - " + veh.toString());
+                XWPFParagraph pVeh = document.createParagraph();
+                XWPFRun runVeh = pVeh.createRun();
+                runVeh.setText("- " + veh.getTipoVehiculo());
             }
         }
 
+        // ===== Competencias =====
         if (usuario.getCompetencias() != null && !usuario.getCompetencias().isEmpty()) {
-            document.createParagraph().createRun().setText("Competencias:");
+            XWPFParagraph pCompTitulo = document.createParagraph();
+            XWPFRun runCompTitulo = pCompTitulo.createRun();
+            runCompTitulo.setBold(true);
+            runCompTitulo.setText("Competencias:");
+
             for (var comp : usuario.getCompetencias()) {
-                document.createParagraph().createRun().setText(" - " + comp.toString());
+                XWPFParagraph pComp = document.createParagraph();
+                XWPFRun runComp = pComp.createRun();
+                runComp.setText("- " + comp.getDescripcion());
             }
         }
 
+        // ===== Expectativa laboral =====
         if (usuario.getExpectativa() != null) {
-            document.createParagraph().createRun()
-                    .setText("Expectativa laboral: " + usuario.getExpectativa().toString());
+            var exp = usuario.getExpectativa();
+            XWPFParagraph pExpTitulo = document.createParagraph();
+            XWPFRun runExpTitulo = pExpTitulo.createRun();
+            runExpTitulo.setBold(true);
+            runExpTitulo.setText("Expectativa laboral:");
+
+            if (exp.getOcupacionDeseada() != null) {
+                XWPFParagraph pExp1 = document.createParagraph();
+                XWPFRun runExp1 = pExp1.createRun();
+                runExp1.setText("Ocupación deseada: " + exp.getOcupacionDeseada());
+            }
+            if (exp.getNivelCargo() != null) {
+                XWPFParagraph pExp2 = document.createParagraph();
+                XWPFRun runExp2 = pExp2.createRun();
+                runExp2.setText("Nivel de cargo: " + exp.getNivelCargo());
+            }
+            if (exp.getSalarioDeseado() != null) {
+                XWPFParagraph pExp3 = document.createParagraph();
+                XWPFRun runExp3 = pExp3.createRun();
+                runExp3.setText("Salario deseado: " + exp.getSalarioDeseado());
+            }
+            if (exp.getJornada() != null) {
+                XWPFParagraph pExp4 = document.createParagraph();
+                XWPFRun runExp4 = pExp4.createRun();
+                runExp4.setText("Jornada: " + exp.getJornada());
+            }
+            if (exp.getRegionComuna() != null) {
+                XWPFParagraph pExp5 = document.createParagraph();
+                XWPFRun runExp5 = pExp5.createRun();
+                runExp5.setText("Ubicación: " + exp.getRegionComuna());
+            }
+            if (exp.getTipoContrato() != null) {
+                XWPFParagraph pExp6 = document.createParagraph();
+                XWPFRun runExp6 = pExp6.createRun();
+                runExp6.setText("Contrato: " + exp.getTipoContrato());
+            }
+            if (exp.getTurnos() != null) {
+                XWPFParagraph pExp7 = document.createParagraph();
+                XWPFRun runExp7 = pExp7.createRun();
+                runExp7.setText("Turnos: " + exp.getTurnos());
+            }
         }
 
+        // ===== Guardar documento =====
         try (FileOutputStream out = new FileOutputStream(path)) {
             document.write(out);
         }
