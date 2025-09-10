@@ -13,12 +13,8 @@ export default function Home() {
     return (
         <div style={{ padding: "2rem" }}>
             <h2>Home</h2>
-            <h3>Usuarios registrados:</h3>
-            <ul>
-                {usuarios.map((u) => (
-                    <li key={u.id}>{u.nombre}</li>
-                ))}
-            </ul>
+            <h3>Hola mundo! 👍:</h3>
+
         </div>
     );
 }

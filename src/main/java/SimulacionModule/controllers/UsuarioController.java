@@ -37,6 +37,13 @@ public class UsuarioController {
         return usuario.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    // GET - Obtener siempre el usuario con ID = 1
+    @GetMapping("/default")
+    public ResponseEntity<Usuario> getUsuarioDefault() {
+        Optional<Usuario> usuario = usuarioRepository.findById(1L);
+        return usuario.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     // POST - Crear nuevo usuario
     @PostMapping
@@ -62,8 +69,34 @@ public class UsuarioController {
 
         if (optionalUsuario.isPresent()) {
             Usuario usuario = optionalUsuario.get();
+
+            // Actualizar todos los campos
             usuario.setNombre(usuarioDetails.getNombre());
-            // Aquí actualizarías otros campos si los tuvieras
+            usuario.setApellidos(usuarioDetails.getApellidos());
+            usuario.setDireccion(usuarioDetails.getDireccion());
+            usuario.setSexo(usuarioDetails.getSexo());
+            usuario.setFechaNacimiento(usuarioDetails.getFechaNacimiento());
+            usuario.setNacionalidad(usuarioDetails.getNacionalidad());
+            usuario.setEstadoCivil(usuarioDetails.getEstadoCivil());
+            usuario.setDiscapacidad(usuarioDetails.getDiscapacidad());
+            usuario.setPassword(usuarioDetails.getPassword());
+            usuario.setRut(usuarioDetails.getRut());
+            usuario.getCondicionLaboral().setSituacionLaboral(usuarioDetails.getCondicionLaboral().getSituacionLaboral());
+            usuario.getCondicionLaboral().setFechaInicioSituacion(usuarioDetails.getCondicionLaboral().getFechaInicioSituacion());
+            usuario.getCondicionLaboral().setUltimoSalarioLiquido(usuarioDetails.getCondicionLaboral().getUltimoSalarioLiquido());
+            usuario.getCondicionLaboral().setUltimaActividad(usuarioDetails.getCondicionLaboral().getUltimaActividad());
+            usuario.getCondicionLaboral().setBuscandoEmpleo(usuarioDetails.getCondicionLaboral().getBuscandoEmpleo());
+            usuario.setResumenPerfil(usuarioDetails.getResumenPerfil());
+            usuario.setExpectativa(usuarioDetails.getExpectativa());
+            usuario.setDirecciones(usuarioDetails.getDirecciones());
+            usuario.setContactos(usuarioDetails.getContactos());
+            usuario.setExperiencias(usuarioDetails.getExperiencias());
+            usuario.setReferencias(usuarioDetails.getReferencias());
+            usuario.setEducacion(usuarioDetails.getEducacion());
+            usuario.setCapacitaciones(usuarioDetails.getCapacitaciones());
+            usuario.setIdiomas(usuarioDetails.getIdiomas());
+
+
 
             Usuario updatedUsuario = usuarioRepository.save(usuario);
             return ResponseEntity.ok(updatedUsuario);
@@ -71,6 +104,7 @@ public class UsuarioController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     // DELETE - Eliminar usuario
     @DeleteMapping("/{id}")
