@@ -1,12 +1,33 @@
-{
-  "21160920-6" : {
-    "rut" : "21160920-6",
-    "nombre" : "Nicolas",
-    "correo" : "narriagada2022@alu.uct.cl",
-    "telefono" : "998115740",
-    "datosCurriculares" : {
-      "lugaresEstudio" : [ "Estudie en jasdjfsdjafjsadfjasdjfasjdfjasdfj" ],
-      "lugaresTrabajo" : [ "Trabaje en ajsdfjasdjfasdfjasdjfasdjfjksadfjkasdjfasdf" ]
-    }
-  }
-}
+[ {
+  "nombre" : "Nicolas",
+  "rut" : "21.160.920-6",
+  "telefono" : "998115740",
+  "direccion" : "milano01475",
+  "ciudad" : "Temuco",
+  "dondeTrabajo" : "Trabje en jasdjf jasdfj asdf askdf jasdf ",
+  "dondeEstudio" : "Estudie en ajsdf jasdjf sadf asdf"
+}, {
+  "nombre" : "Carlos",
+  "rut" : "10.456.324-1",
+  "telefono" : "985745689",
+  "direccion" : "claveles880",
+  "ciudad" : "Temuco",
+  "dondeTrabajo" : "Trabje en jasdjf jasdfj asdf askdf jasdf ",
+  "dondeEstudio" : "Estudie en ajsdf jasdjf sadf asdf"
+}, {
+  "nombre" : "Amaro",
+  "rut" : "21.160.930-3",
+  "telefono" : "956894903",
+  "direccion" : "alcantara",
+  "ciudad" : "Temuco",
+  "dondeTrabajo" : "Trabaje en ajsdf jasdjf asjdf jasdjf ",
+  "dondeEstudio" : "Estudie en jasdfjas djf jasdfj asjdf"
+}, {
+  "nombre" : "Cristobal",
+  "rut" : "14.250.280-3",
+  "telefono" : "9843434343",
+  "direccion" : "callefalsa123",
+  "ciudad" : "Lautaro",
+  "dondeTrabajo" : "Trabaje en ajsf sadf asdf asdf ",
+  "dondeEstudio" : "Estudie en sdf asdf asdf sadf "
+} ]
