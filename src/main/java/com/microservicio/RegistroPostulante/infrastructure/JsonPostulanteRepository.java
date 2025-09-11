@@ -21,7 +21,6 @@ public class JsonPostulanteRepository implements PostulanteRepository {
     public void save(Postulante postulante) {
         List<Postulante> postulantes = new ArrayList<>(findAll());
 
-        // Evitar duplicados por RUT (básico)
         boolean exists = postulantes.stream()
                 .anyMatch(p -> p.getRut() != null && p.getRut().equalsIgnoreCase(postulante.getRut()));
         if (exists) {
@@ -54,7 +53,6 @@ public class JsonPostulanteRepository implements PostulanteRepository {
             }
             return objectMapper.readValue(file, new TypeReference<List<Postulante>>() {});
         } catch (IOException e) {
-            // Si el archivo está corrupto o vacío, devuelvo lista vacía para no romper el flujo
             return new ArrayList<>();
         }
     }
